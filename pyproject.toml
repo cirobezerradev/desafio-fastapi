@@ -1,0 +1,37 @@
+[project]
+name = "desafio-fastapi"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "alembic>=1.17.1",
+    "asyncpg>=0.30.0",
+    "fastapi[standard]>=0.121.1",
+    "sqlalchemy>=2.0.44",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.14.4",
+]
+
+[tool.ruff]
+line-length = 120
+extend-exclude = ['migrations']
+
+[tool.ruff.lint]
+preview = true
+select = [ 'I', 'F', 'E', 'W', 'PL', 'PT']
+
+[tool.ruff.format]
+preview = true
+quote-style = 'single'
+
+[tool.taskipy.tasks]
+lint = "uv run ruff check"
+lint_fix = "uv run ruff check --fix"
+format = "uv run ruff format"
+run = "uv run fastapi dev app/main.py"
+makemigrations = "uv run alembic revision --autogenerate"
+migrate = "uv run alembic upgrade"
